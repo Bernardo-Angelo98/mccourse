@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bern6angel.mccourse.domain.Category;
 import com.bern6angel.mccourse.services.CategoryService;
 
-import javassist.tools.rmi.ObjectNotFoundException;
 
 @RestController
 @RequestMapping(value="/categories")
