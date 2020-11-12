@@ -8,13 +8,18 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.bern6angel.mccourse.domain.Category;
+import com.bern6angel.mccourse.domain.Product;
 import com.bern6angel.mccourse.repositories.CategoryRepository;
+import com.bern6angel.mccourse.repositories.ProductRepository;
 
 @SpringBootApplication
 public class MccourseApplication implements CommandLineRunner{
 
 	@Autowired
 	CategoryRepository categoryRepository;
+	
+	@Autowired
+	ProductRepository productRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(MccourseApplication.class, args);
@@ -26,8 +31,19 @@ public class MccourseApplication implements CommandLineRunner{
 		Category cat1 = new Category(null,"Informática");
 		Category cat2 = new Category(null,"Escritório");
 		
-		categoryRepository.saveAll(Arrays.asList(cat1,cat2));
+		Product p1 = new Product(null,"Computador",2000.00);
+		Product p2 = new Product(null,"Impressora",800.00);
+		Product p3 = new Product(null,"Mouse",80.00);
 		
+		cat1.getProducts().addAll(Arrays.asList(p1,p2,p3));
+		cat2.getProducts().addAll(Arrays.asList(p2));
+		
+		p1.getCategories().addAll(Arrays.asList(cat1));
+		p2.getCategories().addAll(Arrays.asList(cat1,cat2));
+		p3.getCategories().addAll(Arrays.asList(cat1));
+		
+		categoryRepository.saveAll(Arrays.asList(cat1,cat2));
+		productRepository.saveAll(Arrays.asList(p1,p2,p3));
 	}
 
 }
