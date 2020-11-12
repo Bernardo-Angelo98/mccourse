@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bern6angel.mccourse.domain.Category;
 import com.bern6angel.mccourse.services.CategoryService;
 
+import javassist.tools.rmi.ObjectNotFoundException;
+
 @RestController
 @RequestMapping(value="/categories")
 public class CategoryResources {
@@ -20,9 +22,10 @@ public class CategoryResources {
 	@RequestMapping(value="/{id}", method=RequestMethod.GET)
 	public ResponseEntity<?> find(@PathVariable Integer id) {
 		
-		Category obj = service.find(id);
 		
+		Category obj = service.find(id);
 		return ResponseEntity.ok().body(obj);
+		
 	}
 	
 }
