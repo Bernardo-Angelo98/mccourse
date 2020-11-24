@@ -1,35 +1,34 @@
 package com.bern6angel.mccourse.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
-public class City implements Serializable {
+public class Estado implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Integer id;
-	private String name;
+	private String nome;
 	
-	@ManyToOne
-	@JoinColumn(name="state_id")
-	private State state;
+	@OneToMany(mappedBy="estado")
+	private List<Cidade> cidades = new ArrayList<>();
 	
-	public City() {
+	public Estado() {
 	}
 
-	public City(Integer id, String name, State state) {
+	public Estado(Integer id, String nome) {
 		super();
 		this.id = id;
-		this.name = name;
-		this.state = state;
+		this.nome = nome;
 	}
 
 	public Integer getId() {
@@ -41,19 +40,19 @@ public class City implements Serializable {
 	}
 
 	public String getNome() {
-		return name;
+		return nome;
 	}
 
 	public void setNome(String nome) {
-		this.name = nome;
+		this.nome = nome;
 	}
 
-	public State getEstado() {
-		return state;
+	public List<Cidade> getCidades() {
+		return cidades;
 	}
 
-	public void setEstado(State state) {
-		this.state = state;
+	public void setCidades(List<Cidade> cidades) {
+		this.cidades = cidades;
 	}
 
 	@Override
@@ -72,7 +71,7 @@ public class City implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		City other = (City) obj;
+		Estado other = (Estado) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;
